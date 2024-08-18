@@ -23,8 +23,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

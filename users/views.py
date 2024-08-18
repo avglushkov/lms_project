@@ -15,9 +15,11 @@ from users.serializers import UserSerializer, PaymentSerializer
 
 
 
+
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
 
 
 class PaymentListAPIView(generics.ListAPIView):
