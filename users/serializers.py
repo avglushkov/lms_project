@@ -16,5 +16,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'phone', 'town', 'payments')
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
