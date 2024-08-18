@@ -1,10 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-<<<<<<< HEAD
-=======
 from lms.models import Course, Lesson
-
->>>>>>> cfb575a (Коммит домашнего задания 24.2)
 
 # Create your models here.
 class User(AbstractUser):
@@ -15,6 +11,10 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='users/', blank=True, null=True, verbose_name='аватар')
     code = models.CharField(max_length=100, blank=True, null=True, verbose_name='токен')
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
@@ -23,14 +23,8 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-<<<<<<< HEAD
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-=======
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
 
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -40,4 +34,10 @@ class Payment(models.Model):
     summ = models.PositiveIntegerField(blank=True, null=True, verbose_name='Сумма')
     payment_type = models.CharField(max_length=20, choices=[('cash', 'Наличные'), ('transaction', 'Перевод на счет')],
                                     blank=True, null=True, verbose_name='Способ платежа')
->>>>>>> cfb575a (Коммит домашнего задания 24.2)
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
+
+    def __str__(self):
+        return f'{self.user} - {self.payment_date}'
