@@ -1,1 +1,35 @@
-[{"model": "lms.lesson", "pk": 2, "fields": {"name": "Первый урок", "preview": "", "video_link": null, "description": "первый урок по python", "course": 2}}, {"model": "lms.lesson", "pk": 3, "fields": {"name": "Второй урок", "preview": "", "video_link": null, "description": "Второй урок по python", "course": 2}}, {"model": "lms.lesson", "pk": 4, "fields": {"name": "Первый урок DevSecOps", "preview": "", "video_link": null, "description": "Первый урок DevSecOps", "course": 4}}]
+[
+  {
+    "model": "lms.lesson",
+    "pk": 2,
+    "fields": {
+      "name": "Первый урок",
+      "preview": "",
+      "video_link": null,
+      "description": "первый урок по python",
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 3,
+    "fields": {
+      "name": "Второй урок",
+      "preview": "",
+      "video_link": null,
+      "description": "Второй урок по python",
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 4,
+    "fields": {
+      "name": "Первый урок DevSecOps",
+      "preview": "",
+      "video_link": null,
+      "description": "Первый урок DevSecOps",
+      "course": 4
+    }
+  }
+]
