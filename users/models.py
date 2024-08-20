@@ -34,6 +34,7 @@ class Payment(models.Model):
     summ = models.PositiveIntegerField(blank=True, null=True, verbose_name='Сумма')
     payment_type = models.CharField(max_length=20, choices=[('cash', 'Наличные'), ('transaction', 'Перевод на счет')],
                                     blank=True, null=True, verbose_name='Способ платежа')
+    
 
     class Meta:
         verbose_name = "Платеж"

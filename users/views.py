@@ -4,14 +4,15 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
 from django.core.mail import send_mail
 
-from rest_framework import viewsets, generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from config.settings import EMAIL_HOST_USER
 
 from users.models import User, Payment
-from users.serializers import UserSerializer, PaymentSerializer
+from users.serializers import UserSerializer, PaymentSerializer, MyTokenObtainPairSerializer
 
 
 
@@ -44,3 +45,6 @@ class PaymentRetriveAPIView(generics.RetrieveAPIView):
 
 class PaymentDestroyAPIView(generics.DestroyAPIView):
     queryset = Payment.objects.all()
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
