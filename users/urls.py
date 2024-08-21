@@ -17,6 +17,7 @@ urlpatterns = [
 
                   path('register/', UserCreateAPIView.as_view(), name='register'),
 
+
                   path('payment/', PaymentListAPIView.as_view(), name='payment-list'),
                   path('payment/create/', PaymentCreateAPIView.as_view(), name='payment-create'),
                   path('payment/<int:pk>/', PaymentRetriveAPIView.as_view(), name='payment-get'),

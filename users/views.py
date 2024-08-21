@@ -19,6 +19,7 @@ from users.serializers import UserSerializer, PaymentSerializer
 
 
 
+
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -28,6 +29,7 @@ class UserCreateAPIView(CreateAPIView):
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()
+
 
 class UserViewSet(viewsets.ModelViewSet):
 
@@ -45,6 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
             self.permission_classes = [~IsModerator | IsOwner]
 
         return super().get_permissions()
+
 
 class PaymentListAPIView(generics.ListAPIView):
     serializer_class = PaymentSerializer
