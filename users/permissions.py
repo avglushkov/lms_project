@@ -18,14 +18,3 @@ class IsOwner(permissions.BasePermission):
         else:
             return False
 
-# class IsUsersProfile(permissions.BasePermission):
-#     """проверка, является ли профиль профилем пользователя"""
-#
-#     message = 'Is not your profile. You have not access'
-#
-#     def has_object_permission(self, request, view, obj):
-#         if obj.email == request.user.email:
-#             return True
-#         else:
-#             return False
-
