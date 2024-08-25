@@ -21,6 +21,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
+
     name = models.CharField(max_length=100, verbose_name='Название')
     preview = models.ImageField(upload_to='lms/', blank=True, null=True, verbose_name='Превью')
     video_link = models.CharField(max_length=500, blank=True, null=True, verbose_name='Ссылка на видео')
@@ -35,3 +36,11 @@ class Lesson(models.Model):
     def __str__(self):
         return self.name
 
+class Subscription(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'

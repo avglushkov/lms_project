@@ -17,9 +17,6 @@ from users.models import User, Payment
 from users.serializers import UserSerializer, PaymentSerializer
 
 
-
-
-
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
