@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from requests import Response
+from rest_framework.response import Response
+
 
 from rest_framework import viewsets, generics, status
 from rest_framework.permissions import IsAuthenticated
@@ -69,11 +70,28 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
 
 
-
+# class SubscriptionViewSet(viewsets.ModelViewSet):
+#     queryset = Subscription.objects.all()
+#     serializer_class = SubscriptionSerializer
+#     permission_classes = (IsAuthenticated,)
+#
+#     def post(self, request, *args, **kwargs):
+#         user = self.request.user
+#         course_id = self.request.data.get("course")
+#         course_item = get_object_or_404(Course, pk=course_id)
+#
+#         subscription, created = Subscription.objects.get_or_create(user=user, course=course_item)
+#         if not created:
+#             subscription.delete()
+#             message = 'Subscription removed'
+#         else:
+#             message = 'Subscription added'
+#
+#         return Response({"message": message})
 class SubscriptionAPIView(APIView):
     serializer_class = SubscriptionSerializer
     permission_classes = (IsAuthenticated,)
-    queryset = Subscription.objects.all()
+    # queryset = Subscription.objects.all()
     def post(self, request, *args, **kwargs):
         user = self.request.user
         course_id = self.request.data.get('course')
@@ -82,11 +100,10 @@ class SubscriptionAPIView(APIView):
 
         if sub_item.exists():
             sub_item.delete()
-            message = {"message": "Подписка отключена"}
-            return Response(message)
-
+            message = 'Подписка отключена'
 
         else:
             Subscription.objects.create(user=user, course=course)
-            message = {"message": "Подписка включена"}
-            return Response(message)
+            message = 'Подписка включена'
+
+        return Response({'message': message})
