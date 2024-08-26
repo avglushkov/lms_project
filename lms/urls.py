@@ -9,6 +9,7 @@ app_name = LmsConfig.name
 
 router = DefaultRouter()
 router.register(r'courses', CourseViewSet, basename='courses')
+# router.register(r'subscriptions', SubscriptionViewSet, basename='subscriptions')
 
 urlpatterns = [
                   path('lesson/', LessonListAPIView.as_view(), name='lesson-list'),
@@ -16,6 +17,6 @@ urlpatterns = [
                   path('lesson/<int:pk>/', LessonRetriveAPIView.as_view(), name='lesson-get'),
                   path('lesson/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
                   path('lesson/delete/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson-delete'),
-                  path('subscribe/', SubscriptionAPIView.as_view(), name='subscribe_create'),
+                  path('subscription/', SubscriptionAPIView.as_view(), name='subscription_create'),
 
               ] + router.urls
