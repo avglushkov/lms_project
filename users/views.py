@@ -10,10 +10,12 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.exceptions import ValidationError
 
 from config.settings import EMAIL_HOST_USER
 
 from users.models import User, Payment
+from users.services import create_stripe_product, create_stripe_price, create_stripe_session
 from users.serializers import UserSerializer, PaymentSerializer
 
 
@@ -56,6 +58,25 @@ class PaymentListAPIView(generics.ListAPIView):
 
 class PaymentCreateAPIView(generics.CreateAPIView):
     serializer_class = PaymentSerializer
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        if payment.course is None and payment.lesson is None:
+            raise ValidationError('Нужно выбрать курс или урок для оплаты')
+        elif payment.course is not None and payment.lesson is not None:
+            raise ValidationError('Вы выбрали сразу и курс и урок. Давайте выберем что-то одно')
+        else:
+            if payment.course:
+                product = create_stripe_product(payment.course)
+            else:
+                product = create_stripe_product(payment.lesson)
+        price = create_stripe_price(price=payment.summ, product=product)
+        session_id, session_url = create_stripe_session(price)
+        payment.session_id = session_id
+        payment.link = session_url
+
+
+        payment.save()
 
 
 class PaymentUpdateAPIView(generics.UpdateAPIView):
