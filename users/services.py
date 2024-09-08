@@ -1,5 +1,6 @@
+import requests
 import stripe
-from config.settings import STRIPE_API_KEY
+from config.settings import STRIPE_API_KEY, TELEGRAM_URL, TELEGRAM_TOKEN
 
 stripe.api_key = STRIPE_API_KEY
 
@@ -30,3 +31,10 @@ def create_stripe_session(price):
     )
     return session.get('id'), session.get('url')
 
+def send_telegram_message(chat_id,message):
+
+    params = {
+        'text': message,
+        'chat_id': chat_id,
+    }
+    requests.get(f'{TELEGRAM_URL}{TELEGRAM_TOKEN}/sendMassage', params=params)
