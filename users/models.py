@@ -10,6 +10,7 @@ class User(AbstractUser):
     town = models.CharField(max_length=50, blank=True, null=True, verbose_name='город')
     avatar = models.ImageField(upload_to='users/', blank=True, null=True, verbose_name='аватар')
     code = models.CharField(max_length=100, blank=True, null=True, verbose_name='токен')
+    tg_chat_id = models.CharField(max_length=100, blank=True, null=True, verbose_name='ID в телеграмме')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

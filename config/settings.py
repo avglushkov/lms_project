@@ -210,3 +210,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'check_user_activity': {'task': 'users.tasks.check_user_activity', 'schedule': timedelta(days=1)}
 }
+
+
+TELEGRAM_URL = ('https://api.telegram.org/bot')
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")

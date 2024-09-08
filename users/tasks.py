@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from lms.models import Subscription
 from users.models import User
 
+
 @shared_task
 def check_user_activity():
     """блокировка пользователей неактивных более 30 дней"""
@@ -18,4 +19,6 @@ def check_user_activity():
             if today - user.last_login.date() > timedelta(days=30):
                 user.is_active = False
                 user.save()
+
+
 
