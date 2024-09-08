@@ -1,5 +1,8 @@
+import datetime
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
+from django.utils import timezone
+from datetime import timedelta, datetime
 
 
 from rest_framework import viewsets, generics, status
@@ -10,6 +13,7 @@ from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSeri
 from lms.models import Course, Lesson, Subscription
 from lms.paginators import LmsPaginator
 from users.permissions import IsModerator, IsOwner
+from lms.tasks import change_course_sendmail
 
 
 
@@ -34,6 +38,19 @@ class CourseViewSet(viewsets.ModelViewSet):
             self.permission_classes = [~IsModerator | IsOwner]
 
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        """проверка наличия изменений"""
+
+        course = serializer.save()
+        if course.last_change:
+            if timezone.now() - course.last_change > timedelta(hours=4):
+                change_course_sendmail.delay(course)
+        else:
+            change_course_sendmail.delay(course)
+        course.last_change = timezone.now()
+        course.save()
+
 
 
 class LessonListAPIView(generics.ListAPIView):
